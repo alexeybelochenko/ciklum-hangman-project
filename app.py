@@ -18,9 +18,9 @@ def game(message):
     bot.send_message(message.chat.id, f"Бот загадал тебе слово длиной {new_game_start.word_lenght} символов. Попробуй угадать {template} и оно {new_game_start.word}")
  
 
-@bot.message_handler(commands=['get_luck'], func=lambda message: True if message.text.lower() == 'да' else False)
+@bot.message_handler(commands=['get_luck'])
 def minigame(message):
-    bot.send_message(message.chat.id, "Это специальная мини-игра, которая может помочь тебе выиграть, но также можно забрать у тебя одну жить. это мини-игра, кости. Бросаешь - побеждаешь, тут можно выбить один из трёх призов. Хочешь бросить? ")
+    bot.send_message(message.chat.id, "Это специальная мини-игра, которая может помочь тебе выиграть, но также можно забрать у тебя одну жить. это мини-игра, кости. Бросаешь - побеждаешь, тут можно выбить один из трёх призов. Хочешь бросить?")
 
 
 
