@@ -9,7 +9,7 @@ bot = telebot.TeleBot('1287855639:AAE3Oe4FA19WGimahG_YbCVs8Zs4NIG2IHY')
 def start_message(message):
     bot.send_message(message.chat.id, """Привет, это игра Hangman. Для того чтобы начать игру /game""")
 
-@bot.message_handler(commands=['help'])
+@bot.message_handler(commands=['tips'])
 def tips(message):
     r = new_game_start.tips()
     bot.send_message(message.chat.id, f"Подсказка {r}")

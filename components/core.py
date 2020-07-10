@@ -45,60 +45,23 @@ class Hangman:
                     return f'Буква (Буквы) {char} есть в этом слове {self.template}'
                 else:
                     self.life -= 1
-                    return f'Буквы нет и у вас осталось {self.life} жизней. Вы можете испытать свою удачу /get_luck'
+                    return f'Буквы нет и у вас осталось {self.life} жизней. Вы можете испытать свою удачу /get_luck или используйте /tips'
 
-            return 'Вы допустили предельное количество ошибок, чтобы начать новую игру /game'
+            return f'Вы допустили предельное количество ошибок, чтобы начать новую игру /game Ваше слово {self.word}'
         
         else:
             return f'Вы угадали слово {self.word}'
 
 
     def tips(self):
-        url = 'https://ru.wikipedia.org/wiki/'
-
-        url += self.word
-
-        HEADERS = {
-            'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 OPR/68.0.3618.191'
-            }
-
-        response = requests.get(url, headers = HEADERS)
-        soup = BeautifulSoup(response.content, features = 'html.parser')
-        text = soup.find('div', class_ = 'mw-parser-output').text
-
-        text = str(text)
-
-        text = text[0:10000]
-
-        text = text.lower()
-
-        text = text.replace('у́', 'у')
-        text = text.replace('а́', 'a')
-        text = text.replace('о́', 'o')
-        text = text.replace('и́', 'и')
-        text = text.replace('е́', 'е' )
-
-        text = text.split()
-
-        i = 0
-
-        while text[i] != '—':
-            i += 1
-
-        if text[i - 1] == self.word or text[i - 2] == self.word or text[i - 3] == self.word:
-            text = text[i + 1:-1]
-            text = ' '.join(text)
-            i = text.find('.')
-            text = text[0:i]
-
-        return text
+        pass
 
 
 class Minigame(Hangman):
     surprises = {
         0 : "Тебе повезло, мы добавили тебе еще одну жизнь", 
         1 : "Удача сыграла с тобой злую шутку и нам пришлось забрать у тебя еще одну жизнь",
-        2 : "Ого, тебе очень повезло, ты можешь еще раз бросить кости :dame_die:",
+        2 : "Ты можешь еще раз бросить кости",
         }
 
     def throw(self):
