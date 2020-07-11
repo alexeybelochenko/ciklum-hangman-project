@@ -54,7 +54,61 @@ class Hangman:
 
 
     def tips(self):
-        pass
+        url = 'https://ru.wikipedia.org/wiki/'
+
+        url += self.word
+
+        HEADERS = {
+            'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 OPR/68.0.3618.191'
+            }
+
+        response = requests.get(url, headers = HEADERS)
+        soup = BeautifulSoup(response.content, features = 'html.parser')
+        try:
+            text = soup.find('div', class_ = 'mw-parser-output').text
+            text = str(text)
+
+            text = text[0:10000]
+
+            text = text.lower()
+
+            text = text.replace('у́', 'у')
+            text = text.replace('а́', 'a')
+            text = text.replace('о́', 'o')
+            text = text.replace('и́', 'и')
+            text = text.replace('е́', 'е')
+
+            t = 0
+
+            while t != 5:
+                # beginning = text.find('(')
+                # end = text.find(')')
+
+                text_part_1 = text[0:text.find('(') - 1]
+                text_part_2 = text[text.find(')') + 1:-1]
+
+                text = text_part_1 + text_part_2
+
+                t += 1
+
+            i = 0
+
+            text = text.split()
+
+            while text[i] != '—':
+                i += 1
+
+            if text[i - 1] == search or text[i - 2] == search or text[i - 3] == search:
+
+                text = text[i + 1:-1]
+
+                text = ' '.join(text)
+                text = text[0:text.find('.')]
+                return text
+            else:
+                return 'Простите, мы пока что не можем дать чёткого определения данному слову'
+        except:
+            return 'Простите, мы пока что не можем дать чёткого определения данному слову'
 
 
 class Minigame(Hangman):

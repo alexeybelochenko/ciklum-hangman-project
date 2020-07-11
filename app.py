@@ -11,8 +11,11 @@ def start_message(message):
 
 @bot.message_handler(commands=['tips'])
 def tips(message):
-    r = new_game_start.tips()
-    bot.send_message(message.chat.id, f"Подсказка {r}")
+    try:
+        tip = new_game_start.tips() 
+        bot.send_message(message.chat.id, f"Подсказка: {tip}")
+    except:
+        bot.send_message(message.chat.id, 'Для начала начните игру /game')
 
 @bot.message_handler(commands=['game'])
 def game(message):
