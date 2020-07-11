@@ -98,7 +98,7 @@ class Hangman:
             while text[i] != '—':
                 i += 1
 
-            if text[i - 1] == search or text[i - 2] == search or text[i - 3] == search:
+            if text[i - 1] == self.word or text[i - 2] == self.word or text[i - 3] == self.word:
 
                 text = text[i + 1:-1]
 
